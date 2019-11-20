@@ -1,0 +1,159 @@
+
+----------------------
+Create a virtual environment with conda
+----------------------
+conda -V
+conda update conda
+conda create -n python36 python=3.6 anaconda
+source activate python36
+--conda install -n python36 turicreate
+--(python36) pip install -U turicreate
+
+
+----------------------
+Create a virtual environment with virtualenv
+----------------------
+pip install --upgrade virtualenv
+virtualenv --python=python3.6 python36
+source python36/bin/activate
+(python36)pip install -U turicreate
+
+
+test the turicreate installation
+---------------------------------
+(python36)python -V
+(python36)python
+(python36)python >> import turicreate as tc
+(python36)python >> print(tc.__version__)
+
+
+deactivate the virtual environment
+----------------------------------
+(python36)source deactivate
+
+
+turicreatre main page
+---------------------------
+https://apple.github.io/turicreate/docs/userguide/recommender/using-trained-models.html
+
+
+Making recommendations for all users
+------------------------------------
+import turicreate as tc
+
+data = tc.SFrame({
+'user_id': ["Ann", "Ann", "Ann", "Brian", "Brian", "Brian"],
+'item_id': ["Item1", "Item2", "Item4", "Item2", "Item3", "Item5"],
+'rating': [1, 3, 2, 5, 4, 2]})
+m = turicreate.factorization_recommender.create(data, target='rating')
+
+recommendations = m.recommend()
+print(recommendations)
+
+
+
+
+Making recommendations for specific users
+-----------------------------------------
+recommendations = m.recommend(users=['Brian'])
+print(recommendations)
+
+
+
+Making recommendations for new users
+------------------------------------
+recommendations = m.recommend(['Charlie'])
+print(recommendations)
+
+
+
+#https://apple.github.io/turicreate/docs/userguide/recommender/using-trained-models.html
+
+import turicreate as tc
+
+data = tc.SFrame({
+'user_id': ["Ann", "Ann", "Ann", "Brian", "Brian", "Brian"],
+'item_id': ["Item1", "Item2", "Item4", "Item2", "Item3", "Item5"],
+'rating': [1, 3, 2, 5, 4, 2]})
+
+m = tc.factorization_recommender.create(data, target='rating')
+
+recommendations = m.recommend()
+#print(recommendations)
+
+#Making recommendations for specific users
+recommendations = m.recommend(users=['Brian'])
+#print(recommendations)
+
+#Making recommendations for new users
+recommendations = m.recommend(['Charlie'])
+print(recommendations)
+
+m.save("models/recommender.model")
+
+
+'user_id': ["Ann", "Ann", "Ann", "Brian", "Brian", "Brian"],
+'item_id': ["Item1", "Item2", "Item4", "Item2", "Item3", "Item5"],
+'rating': [1, 3, 2, 5, 4, 2]})
+
+======================
+1) Create login roles (databse user)
+role name: 	recommender01
+password:	recommender01
+
+2) Create the database
+db name: 	recommender01
+owner:		recommender01
+
+3) Create tables
+table 01
+name: 	users
+field1:	(pk) id bigserial
+field1:	name varchar(100) not null
+
+table 02
+name: 	items
+field1:	(pk) id bigserial
+field2:	name varchar(100) not null
+
+table 03
+name: 	ratings
+field1:	(pk) id bigserial
+field2:	user bigint
+field3:	rating double precision
+
+
+(python36) pip install sqlalchemy
+(python36) pip install psycopg2
+
+(python36) python rec03.py
+
+https://apple.github.io/turicreate/docs/api/generated/turicreate.SFrame.html
+
+https://apple.github.io/turicreate/docs/api/generated/turicreate.SFrame.to_dataframe.html
+
+https://apple.github.io/turicreate/docs/userguide/recommender/using-trained-models.html
+
+https://uoa-eresearch.github.io/eresearch-cookbook/recipe/2014/11/20/conda/
+
+https://pypi.org/project/turicreate/
+
+https://apple.github.io/turicreate/docs/userguide/
+
+https://apple.github.io/turicreate/docs/userguide/recommender/choosing-a-model.html
+
+https://apple.github.io/turicreate/docs/userguide/recommender/
+
+https://apple.github.io/turicreate/docs/userguide/recommender/using-trained-models.html
+==================
+
+
+info about recommneder systems
+------------------------------
+https://www.analyticsvidhya.com/blog/2018/06/comprehensive-guide-recommendation-engine-python/
+
+https://medium.com/recombee-blog/machine-learning-for-recommender-systems-part-1-algorithms-evaluation-and-cold-start-6f696683d0ed
+
+https://tryolabs.com/blog/introduction-to-recommender-systems/
+-------------------------
+
